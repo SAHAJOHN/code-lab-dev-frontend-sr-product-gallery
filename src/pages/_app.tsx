@@ -9,7 +9,6 @@ import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { Toaster } from '@/components/ui/sonner';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -52,7 +51,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <title>Product Gallery</title>
       </Head>
       <Global />
-      <Toaster />
+      {/* <Toaster /> */}
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
