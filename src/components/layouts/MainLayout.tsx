@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {ReactElement} from "react";
+import styled from 'styled-components';
+import { ReactElement } from 'react';
 
 const MainLayoutStyled = styled.div`
   width: 100%;
@@ -14,12 +14,10 @@ type MainLayoutProps = {
   children: ReactElement;
 };
 
- const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
-            <MainLayoutStyled>
-                {children}
-            </MainLayoutStyled>
+      <MainLayoutStyled>{children}</MainLayoutStyled>
     </>
   );
 };
