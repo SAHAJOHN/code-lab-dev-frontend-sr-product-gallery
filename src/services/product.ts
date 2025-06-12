@@ -1,11 +1,14 @@
 import Http from '@/api/Http';
 
-const PATH = '/product';
+const PATH = '/products';
 const apiProduct = {
-  getProduct: async (params: any) => {
+  getProduct: async (params: {
+    search: string | string[];
+    limit: number;
+    skip: number;
+  }) => {
     try {
-      const url = `${PATH}`;
-      const response = await Http.get(`${url}`, { params });
+      const response = await Http.get(`${PATH}`, { params });
       return response.data;
     } catch (error: any) {
       console.log('error', error);

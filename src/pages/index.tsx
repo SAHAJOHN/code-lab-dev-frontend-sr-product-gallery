@@ -4,6 +4,9 @@ import MainLayout from '@/components/layouts/MainLayout';
 import styled from 'styled-components';
 import Image from 'next/image';
 import ButtonAction from '@/components/common/ButtonAction';
+import { GetServerSideProps } from 'next';
+import apiProduct from '@/services/product';
+import { ProductApiResponseType } from '@/types/product';
 
 const IndexPageStyled = styled.article`
   width: 100%;
@@ -42,9 +45,13 @@ const IndexPageStyled = styled.article`
     }
   }
 `;
-const IndexPage = () => {
+type Props = {
+  data: ProductApiResponseType;
+};
+const IndexPage = ({ data }: Props) => {
   // const { t } = useTranslation('common');
   // console.log('t', t('greeting'));
+  console.log('data', data);
   return (
     <IndexPageStyled>
       <header>
@@ -92,10 +99,22 @@ IndexPage.getLayout = function getLayout(page: ReactElement) {
 
 export default IndexPage;
 
-export async function getStaticProps({ locale }: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale, query } = context;
+  const { search, limit, skip } = query;
+
+  const params = {
+    search: search || '',
+    limit: limit ? Number(limit) : 10,
+    skip: skip ? Number(skip) : 0,
+  };
+
+  const res = await apiProduct.getProduct(params);
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      data: res,
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-}
+};
