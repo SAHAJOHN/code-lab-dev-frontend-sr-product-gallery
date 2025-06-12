@@ -66,10 +66,19 @@ const IndexPageStyled = styled.article`
         font-size: 20px;
         color: ${({ theme }) => theme.colors.text};
         font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       p {
         color: ${({ theme }) => theme.colors.description};
         font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow-wrap: break-word;
       }
     }
   }
