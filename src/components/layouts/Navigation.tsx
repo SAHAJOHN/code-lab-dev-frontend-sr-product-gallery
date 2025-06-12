@@ -12,6 +12,21 @@ const NavigationStyled = styled.nav`
   display: flex;
   align-items: center;
   padding: 0 24px;
+  z-index: 99;
+  &:before {
+    content: '';
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    position: absolute;
+    z-index: 1;
+    height: 24px;
+    right: 0;
+    bottom: -25px;
+    width: calc(100% - 280px);
+  }
   img {
     cursor: pointer;
     transition: 0.3s ease-in-out;
@@ -33,7 +48,6 @@ const Navigation = () => {
         width={40}
         height={40}
         priority
-        placeholder="blur"
         draggable={false}
         blurDataURL={`/_next/image?url=/images/logo.webp&w=64&q=50`}
         // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"

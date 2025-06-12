@@ -13,14 +13,8 @@ export const Global = createGlobalStyle`
     }
     body {
         margin: 0;
-        background: black;
-        color: #f1f3ff;
-        font-weight: 500;
         display: flex;
         justify-content: center;
-        &::-webkit-scrollbar {
-            //display: none;
-        }
     }
     #nprogress {
         transition: all 0.4s ease-out !important;

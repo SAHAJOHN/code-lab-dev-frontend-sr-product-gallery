@@ -10,8 +10,10 @@ const AsideStyled = styled.aside`
   background: ${({ theme }) => theme.colors.content};
   display: flex;
   flex-direction: column;
-  min-height: inherit;
+  height: calc(100dvh - 64px);
   border-right: ${({ theme }) => `1px solid ${theme.colors.border}`};
+  position: sticky;
+  top: 0;
   .wishlist-header {
     height: 78px;
     border-bottom: ${({ theme }) => `1px solid ${theme.colors.border}`};
@@ -123,7 +125,6 @@ const Aside = () => {
                 width={14}
                 height={14}
                 priority
-                placeholder="blur"
                 draggable={false}
                 blurDataURL={`/_next/image?url=/icons/share.webp&w=8&q=50`}
                 // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
@@ -146,9 +147,8 @@ const Aside = () => {
                       width={100}
                       height={100}
                       priority
-                      placeholder="blur"
                       draggable={false}
-                      blurDataURL={`/_next/image?url=/images/camera.png&w=24&q=50`}
+                      blurDataURL={`/_next/image?url=/images/camera.png&w=16&q=50`}
                       // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
                     />
                   </div>

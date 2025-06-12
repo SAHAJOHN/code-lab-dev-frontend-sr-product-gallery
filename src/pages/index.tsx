@@ -6,21 +6,20 @@ import Image from 'next/image';
 import ButtonAction from '@/components/common/ButtonAction';
 import { GetServerSideProps } from 'next';
 import apiProduct from '@/services/product';
-import { ProductApiResponseType } from '@/types/product';
+import { ProductApiResponseType, ProductItemType } from '@/types/product';
 
 const IndexPageStyled = styled.article`
   width: 100%;
   //background: black;
   position: relative;
-  padding-top: 64px;
+  padding-top: 40px;
   header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: end;
-    position: sticky;
-    top: 0;
-    padding-bottom: 48px;
+    background: ${({ theme }) => theme.colors.background};
+    padding-bottom: 40px;
     .title-group {
       max-width: 300px;
       display: flex;
@@ -44,6 +43,36 @@ const IndexPageStyled = styled.article`
       }
     }
   }
+  .product-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+    padding-bottom: 40px;
+    .product-item {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 24px;
+      border: 1px solid ${({ theme }) => theme.colors.border};
+      padding: 24px 20px;
+      row-gap: 24px;
+      .product-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      h2 {
+        font-size: 20px;
+        color: ${({ theme }) => theme.colors.text};
+        font-weight: 700;
+      }
+      p {
+        color: ${({ theme }) => theme.colors.description};
+        font-weight: 400;
+      }
+    }
+  }
 `;
 type Props = {
   data: ProductApiResponseType;
@@ -64,7 +93,6 @@ const IndexPage = ({ data }: Props) => {
               width={16}
               height={16}
               priority
-              placeholder="blur"
               draggable={false}
               blurDataURL={`/_next/image?url=/icons/check.webp&w=8&q=50`}
               // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
@@ -81,7 +109,6 @@ const IndexPage = ({ data }: Props) => {
               width={24}
               height={24}
               priority
-              placeholder="blur"
               draggable={false}
               blurDataURL={`/_next/image?url=/icons/filter.webp&w=8&q=50`}
               // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
@@ -89,6 +116,30 @@ const IndexPage = ({ data }: Props) => {
           }
         />
       </header>
+      <section className="product-list">
+        {data.products.map((item: ProductItemType) => {
+          console.log('item', item);
+          return (
+            <div className="product-item" key={item.id}>
+              <div className="product-image">
+                <Image
+                  src={item.images[0]}
+                  alt={item.title}
+                  width={132}
+                  height={132}
+                  priority
+                  draggable={false}
+                  blurDataURL={`/_next/image?url=${item.images[0]}&w=16&q=50`}
+                  // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
+                />
+              </div>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+              {/* <span>${item.price}</span> */}
+            </div>
+          );
+        })}
+      </section>
     </IndexPageStyled>
   );
 };
