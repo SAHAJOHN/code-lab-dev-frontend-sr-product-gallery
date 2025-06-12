@@ -2,14 +2,88 @@ import React, { ReactElement } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import MainLayout from '@/components/layouts/MainLayout';
 import styled from 'styled-components';
+import Image from 'next/image';
+import ButtonAction from '@/components/common/ButtonAction';
 
 const IndexPageStyled = styled.article`
   width: 100%;
+  //background: black;
+  position: relative;
+  padding-top: 64px;
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    position: sticky;
+    top: 0;
+    padding-bottom: 48px;
+    .title-group {
+      max-width: 300px;
+      display: flex;
+      flex-direction: column-reverse;
+      row-gap: 8px;
+      h1 {
+        font-size: 32px;
+        color: ${({ theme }) => theme.colors.text};
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .paragraph-wrap {
+        display: flex;
+        align-items: center;
+        column-gap: 4px;
+        p {
+          font-size: 12px;
+          color: ${({ theme }) => theme.colors.text};
+          font-weight: 400;
+        }
+      }
+    }
+  }
 `;
 const IndexPage = () => {
   // const { t } = useTranslation('common');
   // console.log('t', t('greeting'));
-  return <IndexPageStyled></IndexPageStyled>;
+  return (
+    <IndexPageStyled>
+      <header>
+        <div className="title-group">
+          <h1>Gaming Laptops of December 2022</h1>
+          <div className="paragraph-wrap">
+            <Image
+              src={`/icons/check.webp`}
+              alt="logo"
+              width={16}
+              height={16}
+              priority
+              placeholder="blur"
+              draggable={false}
+              blurDataURL={`/_next/image?url=/icons/check.webp&w=8&q=50`}
+              // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
+            />
+            <p>Last updated 1m ago</p>
+          </div>
+        </div>
+        <ButtonAction
+          text={'Filters'}
+          icon={
+            <Image
+              src={`/icons/filter.webp`}
+              alt="logo"
+              width={24}
+              height={24}
+              priority
+              placeholder="blur"
+              draggable={false}
+              blurDataURL={`/_next/image?url=/icons/filter.webp&w=8&q=50`}
+              // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
+            />
+          }
+        />
+      </header>
+    </IndexPageStyled>
+  );
 };
 
 IndexPage.getLayout = function getLayout(page: ReactElement) {

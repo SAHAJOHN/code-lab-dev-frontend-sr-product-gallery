@@ -69,7 +69,7 @@ const AsideStyled = styled.aside`
             background: ${({ theme }) => theme.colors.border};
           }
           &:hover {
-            background: #e0e0e0;
+            background: #eeeeee;
             a {
               text-decoration: underline;
             }

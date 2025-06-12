@@ -14,7 +14,7 @@ const ButtonIconStyled = styled.button`
   transition: 0.3s ease;
 
   &:hover {
-    background: #e0e0e0;
+    background: #eeeeee;
   }
 `;
 type Props = {
