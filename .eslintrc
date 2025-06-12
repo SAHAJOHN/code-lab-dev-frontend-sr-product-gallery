@@ -1,10 +1,6 @@
 {
   // Configuration for JavaScript files
-  "extends": [
-    "next/core-web-vitals",
-    "airbnb-base",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb-base","airbnb-typescript","plugin:prettier/recommended","plugin:@next/next/recommended"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -17,21 +13,22 @@
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts", "**/*.tsx"],
+      "plugins": ["@typescript-eslint", "unused-imports"],
       "extends": [
-        "airbnb-typescript",
-        "plugin:prettier/recommended"
+        "eslint:recommended",
+        "next"
       ],
-      "plugins": [
-        "@typescript-eslint",
-        "unused-imports"
-      ],
-      "parserOptions": { "project": "./tsconfig.json" },
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
       "rules": {
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-shadow": "off",
-        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/no-throw-literal": "off",
+        "@typescript-eslint/semi": ["off"],
         "@next/next/no-img-element": "off",
         "array-callback-return": "off",
         "camelcase": "off",
@@ -44,8 +41,8 @@
         "import/order": "off",
         "import/no-cycle": "off",
         "import/prefer-default-export": "off",
-        "import/no-unresolved": "off",
         "import/extensions": "off",
+        "import/no-unresolved": "off",
         "react-hooks/rules-of-hooks": "off",
         "object-shorthand": "off",
         "no-await-in-loop": "off",
@@ -58,10 +55,15 @@
         "no-return-await": "off",
         "no-use-before-define": "off",
         "no-undef": "off",
+        "no-unused-vars": "off",
         "no-unused-expressions": "off",
         "no-console": "off",
         "no-prototype-builtins": "off",
         "no-return-assign": "off",
+        "no-restricted-exports": "off",
+        "no-unsafe-optional-chaining": "off",
+        "no-useless-catch": "off",
+        "no-promise-executor-return": "off",
         "max-classes-per-file": "off",
         "radix": "off",
         "react/display-name": "off",
@@ -80,7 +82,7 @@
           }
         ],
         "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "_" }],
         "semi": "off"
       }
     }

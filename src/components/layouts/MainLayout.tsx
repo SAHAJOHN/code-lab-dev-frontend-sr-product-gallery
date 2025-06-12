@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { ReactElement } from 'react';
+import Navigation from '@/components/layouts/Navigation';
+import Aside from '@/components/layouts/Aside';
 
-const MainLayoutStyled = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 12px;
-  max-width: 1500px;
-  margin-top: 72px;
+const MainLayoutStyled = styled.main`
+  width: 100vw;
+  background: ${({ theme }) => theme.colors.background};
+  min-height: calc(100dvh - 64px);
+  margin-top: 64px;
 `;
 
 type MainLayoutProps = {
@@ -17,7 +17,11 @@ type MainLayoutProps = {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
-      <MainLayoutStyled>{children}</MainLayoutStyled>
+      <Navigation />
+      <MainLayoutStyled>
+        <Aside />
+        {children}
+      </MainLayoutStyled>
     </>
   );
 };

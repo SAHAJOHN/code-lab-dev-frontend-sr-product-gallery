@@ -5,10 +5,12 @@ import { ReactElement, ReactNode, useEffect } from 'react';
 import Head from 'next/head';
 import { Global } from '@/styles/styled/global';
 import { appWithTranslation } from 'next-i18next';
-import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from '@/styles/styled/themes';
+import useThemeStore from '@/stores/useThemeStore';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -16,6 +18,18 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
+};
+
+type AppWrapperProps = {
+  children: ReactNode;
+};
+
+const AppThemeWrapper = ({ children }: AppWrapperProps) => {
+  const { theme } = useThemeStore();
+  const themeObject = theme === 'dark' ? darkTheme : lightTheme;
+  return (
+    <StyledThemeProvider theme={themeObject}>{children}</StyledThemeProvider>
+  );
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
@@ -52,14 +66,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <Global />
       {/* <Toaster /> */}
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange={false}
-      >
+      <AppThemeWrapper>
         {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
+      </AppThemeWrapper>
     </>
   );
 }
