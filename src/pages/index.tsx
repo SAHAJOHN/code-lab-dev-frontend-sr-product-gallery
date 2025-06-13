@@ -7,6 +7,7 @@ import ButtonAction from '@/components/common/ButtonAction';
 import { GetServerSideProps } from 'next';
 import apiProduct from '@/services/product';
 import { ProductApiResponseType, ProductItemType } from '@/types/product';
+import SvgWinnerIcon from '@/components/svg-icons/SvgWinnerIcon';
 
 const IndexPageStyled = styled.article`
   width: 100%;
@@ -58,6 +59,35 @@ const IndexPageStyled = styled.article`
       padding: 24px 20px;
       row-gap: 24px;
       position: relative;
+      .winner-chip {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        height: 36px;
+        background: #ffab0a;
+        border-radius: 0px 0px 8px 8px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 8px;
+        padding: 10px;
+        span {
+          font-size: 14px;
+          font-weight: 500;
+          position: relative;
+          &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -5px;
+            width: 1px;
+            height: 16px;
+            background: white;
+          }
+        }
+      }
       .platform {
         position: absolute;
         top: 12px;
@@ -139,6 +169,12 @@ const IndexPage = ({ data }: Props) => {
             : '/images/walmart.webp';
           return (
             <div className="product-item" key={item.id}>
+              {!index && (
+                <div className="winner-chip">
+                  <SvgWinnerIcon />
+                  <span>Winner</span>
+                </div>
+              )}
               <div className="platform">
                 <Image
                   src={platformSrc}
