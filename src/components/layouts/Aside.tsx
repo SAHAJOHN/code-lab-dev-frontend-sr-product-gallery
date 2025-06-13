@@ -142,13 +142,13 @@ const Aside = () => {
                 <div className="wishlist-item">
                   <div className="image">
                     <Image
-                      src={`/images/camera.png`}
+                      src={`/images/mockup.webp`}
                       alt="upload"
                       width={100}
                       height={100}
                       priority
                       draggable={false}
-                      blurDataURL={`/_next/image?url=/images/camera.png&w=16&q=50`}
+                      blurDataURL={`/_next/image?url=/images/mockup.webp&w=16&q=50`}
                       // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
                     />
                   </div>
