@@ -57,6 +57,12 @@ const IndexPageStyled = styled.article`
       border: 1px solid ${({ theme }) => theme.colors.border};
       padding: 24px 20px;
       row-gap: 24px;
+      position: relative;
+      .platform {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+      }
       .product-image {
         width: 100%;
         display: flex;
@@ -126,10 +132,24 @@ const IndexPage = ({ data }: Props) => {
         />
       </header>
       <section className="product-list">
-        {data.products.map((item: ProductItemType) => {
-          console.log('item', item);
+        {data.products.map((item: ProductItemType, index: number) => {
+          const isOdd = index % 2 === 1;
+          const platformSrc = isOdd
+            ? '/images/amazon.webp'
+            : '/images/walmart.webp';
           return (
             <div className="product-item" key={item.id}>
+              <div className="platform">
+                <Image
+                  src={platformSrc}
+                  alt={isOdd ? 'amazon' : 'walmart'}
+                  width={40}
+                  height={40}
+                  priority
+                  draggable={false}
+                  blurDataURL={`/_next/image?url=${platformSrc}&w=16&q=50`}
+                />
+              </div>
               <div className="product-image">
                 <Image
                   src={item.images[0]}
@@ -139,7 +159,6 @@ const IndexPage = ({ data }: Props) => {
                   priority
                   draggable={false}
                   blurDataURL={`/_next/image?url=${item.images[0]}&w=16&q=50`}
-                  // sizes="(max-width: 768px) 75vw, (max-width: 1200px) 100vw, 70vw"
                 />
               </div>
               <h2>{item.title}</h2>
