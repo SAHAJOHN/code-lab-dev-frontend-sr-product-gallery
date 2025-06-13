@@ -8,13 +8,14 @@ import { GetServerSideProps } from 'next';
 import apiProduct from '@/services/product';
 import { ProductApiResponseType, ProductItemType } from '@/types/product';
 import SvgWinnerIcon from '@/components/svg-icons/SvgWinnerIcon';
+import { numberWithCommas } from '@/utils/number';
 
 const IndexPageStyled = styled.article`
   width: 100%;
   //background: black;
   position: relative;
   padding-top: 40px;
-  header {
+  .page-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -98,23 +99,55 @@ const IndexPageStyled = styled.article`
         display: flex;
         justify-content: center;
       }
-      h2 {
-        font-size: 20px;
-        color: ${({ theme }) => theme.colors.text};
-        font-weight: 700;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+      .product-header {
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px;
+        h2 {
+          font-size: 20px;
+          color: ${({ theme }) => theme.colors.text};
+          font-weight: 700;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        p {
+          color: ${({ theme }) => theme.colors.description};
+          font-weight: 400;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
+          overflow-wrap: break-word;
+        }
       }
-      p {
-        color: ${({ theme }) => theme.colors.description};
-        font-weight: 400;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        overflow-wrap: break-word;
+      .bottom-group {
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+        color: ${({ theme }) => theme.colors.text};
+        .price {
+          display: flex;
+          align-items: center;
+          column-gap: 10px;
+          font-weight: 700;
+          span {
+            //
+          }
+          .chip {
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid ${({ theme }) => theme.colors.text};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0 8px;
+          }
+        }
       }
     }
   }
@@ -128,7 +161,7 @@ const IndexPage = ({ data }: Props) => {
   console.log('data', data);
   return (
     <IndexPageStyled>
-      <header>
+      <header className="page-header">
         <div className="title-group">
           <h1>Gaming Laptops of December 2022</h1>
           <div className="paragraph-wrap">
@@ -197,9 +230,16 @@ const IndexPage = ({ data }: Props) => {
                   blurDataURL={`/_next/image?url=${item.images[0]}&w=16&q=50`}
                 />
               </div>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-              {/* <span>${item.price}</span> */}
+              <header className="product-header">
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+              </header>
+              <div className="bottom-group">
+                <div className="price">
+                  <span>${numberWithCommas(item.price, 2)}+</span>
+                  <span className="chip">35% off</span>
+                </div>
+              </div>
             </div>
           );
         })}
